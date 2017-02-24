@@ -31,15 +31,32 @@
 
 - 执行`docker-machine env default`出现类似的配置
 
-        `export DOCKER_TLS_VERIFY="1"
+        export DOCKER_TLS_VERIFY="1"
         export DOCKER_HOST="tcp://192.168.99.100:2376"
         export DOCKER_CERT_PATH="/Users/Sheldon/.docker/machine/machines/default"
-        export DOCKER_MACHINE_NAME="default"`
+        export DOCKER_MACHINE_NAME="default"
 
 - Run this command to configure your shell
 
     - `eval $(docker-machine env default)`
     - 或者使用bash则加一行`eval $(docker-machine env default)`到`~/.bash_profile`中
 
+#配置nginx和hosts
+
+    - 根据自己的项目配置`nginx.conf`文件
+    - 执行`docker-machine ip`获取Docker host IP address 例如`192.168.99.100`
+    - 执行`sudo vim /etc/hosts`
+
+        `192.168.99.100  localhost`
+
 #构建docker
-- docker build -t  镜像名称 .  
+
+- 进入含有`Dockerfile`文件的目录
+
+    docker build -t  镜像名称 .  //初次构建需要很久，耐心等待。。。0.0
+
+#项目映射
+
+    docker run -i -t -p 8989:80  -v /Users/Sheldon/Documents/Code/test:/home/work  test /bin/bash
+    -p 映射的端口
+    -v 映射的目录
