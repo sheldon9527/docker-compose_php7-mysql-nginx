@@ -43,11 +43,11 @@
 
 #配置nginx和hosts
 
-    - 根据自己的项目配置`nginx.conf`文件
-    - 执行`docker-machine ip`获取Docker host IP address 例如`192.168.99.100`
-    - 执行`sudo vim /etc/hosts`
+- 根据自己的项目配置`nginx.conf`文件
+- 执行`docker-machine ip`获取Docker host IP address 例如`192.168.99.100`
+- 执行`sudo vim /etc/hosts`
 
-        `192.168.99.100  localhost`
+    `192.168.99.100  localhost`
 
 #构建docker
 
