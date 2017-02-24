@@ -59,14 +59,14 @@
 
 - 进入含有`Dockerfile`文件的目录
 
-    docker build -t  镜像名称 .  //初次构建需要很久，耐心等待。。。0.0
+    docker build -t  镜像名称 .        //初次构建需要很久，耐心等待。。。0.0
 
 #项目映射
 
     docker run -i -t -p 8989:80  -v /Users/Sheldon/Documents/Code/test:/home/work  test /bin/bash
-    -p 映射的端口
-    -v 映射的目录
+    -p 映射的主机端口:容器的端口
+    -v 映射的主机目录:容器的目录
 
 #其他
 
-    有用就star
+    有用请 star
