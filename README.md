@@ -66,6 +66,9 @@
     docker run -i -t -p 8989:80  -v /Users/Sheldon/Documents/Code/test:/home/work  test /bin/bash
     -p 映射的主机端口:容器的端口
     -v 映射的主机目录:容器的目录
+#开启服务
+
+    /run.sh
 
 #访问
 
