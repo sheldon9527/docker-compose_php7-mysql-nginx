@@ -1,3 +1,9 @@
+#克隆下载
+
+    git@github.com:sheldon9527/Dockerfile.git
+
+一下操作是mac电脑为例，Windows操作大同小异。
+
 #安装VirtualBox
 
 - [Docker](https://www.docker.com) 是运行在虚拟机上的所以第一步先先安装虚拟机。
@@ -15,7 +21,7 @@
 
 #安装后检查
 
-- 各个组件的版本
+- 组件的版本
 
     - `docker --version`  
     - `docker-compose --version`  
@@ -60,3 +66,7 @@
     docker run -i -t -p 8989:80  -v /Users/Sheldon/Documents/Code/test:/home/work  test /bin/bash
     -p 映射的端口
     -v 映射的目录
+
+#其他
+
+    有用就star
