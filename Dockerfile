@@ -15,23 +15,16 @@ RUN rm -rf /var/lib/apt/lists/*
 
 
 #下载文件
-
-
-
 RUN mkdir -p /opt/soft && cd /opt/soft && pwd;
 
 # 下载 mysql
 RUN cd /opt/soft && wget -c http://sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz
 RUN cd /opt/soft && wget -c https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.17.tar.gz
 
-
 # 复制 mysql-5.7.17 文件到镜像中（mysql-5.7.17文件夹要和Dockerfile文件在同一路径）
-#COPY mysql-5.7.17.tar.gz  /opt/soft/
-#COPY boost_1_59_0.tar.gz  /opt/soft/
 RUN cd /opt/soft && tar -zxvf mysql-5.7.17.tar.gz;
 
 # 编译 mysql-5.7.17
-
 RUN cd /opt/soft/mysql-5.7.17 && cmake . -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DMYSQL_DATADIR=/usr/local/mysql/data -DSYSCONFDIR=/etc  -DDOWNLOAD_BOOST=1 -DWITH_BOOST=/opt/soft -DWITH_INNOBASE_STORAGE_ENGINE=1 -DWITH_PARTITION_STORAGE_ENGINE=1 -DWITH_FEDERATED_STORAGE_ENGINE=1 -DWITH_BLACKHOLE_STORAGE_ENGINE=1 -DWITH_MYISAM_STORAGE_ENGINE=1  -DENABLED_LOCAL_INFILE=1 -DENABLE_DTRACE=0  -DMYSQL_UNIX_ADDR=/tmp/mysql.sock -DMYSQL_TCP_PORT=3306 -DEXTRA_CHARSETS=all -DDEFAULT_CHARSET=utf8mb4  -DDEFAULT_COLLATION=utf8mb4_general_ci  -DWITH_EMBEDDED_SERVER=1 && make && make install;
 
 #添加 mysql 用户组
