@@ -63,9 +63,15 @@
 
 #项目映射
 
-    docker run -i -t -p 8989:80  -v /Users/Sheldon/Documents/Code/test:/home/work  test /bin/bash
+    docker run -i -t --name lnmp -p 3306:3306 -p 8989:80  -v /Users/Sheldon/Documents/Code/test:/home/work  test
     -p 映射的主机端口:容器的端口
     -v 映射的主机目录:容器的目录
+    --name 容器的名称
+    ##查看容器
+        docker ps
+    ##进入容器
+        docker exec -it lnmp bash
+
 #开启服务
 
     /run.sh
