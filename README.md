@@ -67,14 +67,16 @@
     -p 映射的主机端口:容器的端口
     -v 映射的主机目录:容器的目录
     --name 容器的名称
-    ##查看容器
-        docker ps
-    ##进入容器
-        docker exec -it lnmp bash
+
+#容器命令
+
+    docker start lnmp  ##开启容器
+
+    docker exec -it lnmp bash   ##进入容器
 
 #开启服务
 
-    /run.sh
+    /run.sh  ##php,mysql,redis
 
 #访问
 
