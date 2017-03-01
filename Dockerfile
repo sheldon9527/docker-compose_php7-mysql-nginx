@@ -13,7 +13,6 @@ RUN apt-get clean
 
 RUN rm -rf /var/lib/apt/lists/*
 
-
 #下载文件
 RUN mkdir -p /opt/soft && cd /opt/soft && pwd;
 
@@ -39,8 +38,6 @@ COPY my.cnf /etc/
 RUN cp /opt/soft/mysql-5.7.17/support-files/mysql.server  /etc/init.d/mysql && chmod +x /etc/init.d/mysql
 
 RUN /usr/local/mysql/bin/mysqld --initialize-insecure   --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data --user=mysql
-
-
 
 
 # 编译 PHP
@@ -108,22 +105,13 @@ RUN cd /opt/soft/openresty-1.11.2.2 && ./configure --prefix=/usr/local/openresty
 RUN cd /usr/local/openresty/nginx/conf && mv nginx.conf nginx.conf_bak
 COPY nginx.conf  /usr/local/openresty/nginx/conf
 
-
-
-
-
 #创建工作目录
 RUN mkdir -pv /home/work
 RUN chmod -R +x  /home/work && chown -R www.www /home/work
 
-
-
-
-
 # 添加启动脚本
 ADD ./run.sh /run.sh
 RUN chmod 755 /run.sh
-
 
 CMD /run.sh && tail -f
 
