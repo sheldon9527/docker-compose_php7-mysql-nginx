@@ -1,2 +1,6 @@
 *.ini linguist-language=docker
 *.conf linguist-language=docker
+*.d linguist-language=docker
+*.yml linguist-language=docker
+*.txt linguist-language=docker
+*.php linguist-language=docker
