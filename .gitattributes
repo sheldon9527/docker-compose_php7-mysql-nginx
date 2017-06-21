@@ -4,3 +4,4 @@
 *.yml linguist-language=docker
 *.txt linguist-language=docker
 *.php linguist-language=docker
+*.html linguist-language=docker
