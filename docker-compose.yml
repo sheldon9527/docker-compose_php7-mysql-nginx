@@ -1,0 +1,60 @@
+version: "2"
+services:
+  nginx: #nginx服务
+      build:
+          context: ./nginx #dockerfile
+      ports:
+          - "8082:80" #抛出的端口
+      volumes:
+          - ./web:/home/www #项目目录
+          - ./nginx/config:/etc/nginx/conf.d #配置文件映射
+      container_name: nginx-service #容器名称
+  fpm: #php的fpm服务
+      build:
+          context: ./fpm #dockerfile
+      volumes:
+          - ./web:/home/www #项目目录
+          - ./fpm/config/www:/usr/local/php/etc/php-fpm.d #配置文件映射
+          - ./fpm/config/phpfpm:/usr/local/php/etc #配置文件映射
+      expose: #抛出的端口
+          - "9000"
+      environment:
+          - "DB_HOST=localhost"
+          - "DB_DATABASE=cig"
+      container_name: fpm-service #容器名称
+  mastermariadb: #mariadb数据库主服务
+      image: mariadb #镜像
+      expose: #抛出的端口
+          - "3306"
+      environment:
+          - MYSQL_ROOT_PASSWORD=root #root用户密码
+          - MYSQL_DATABASE=cig #默认创建数据库
+          - MYSQL_USER=slaveUser #创建用于主从复制的用户
+          - MYSQL_PASSWORD=123456 #创建用于主从复制的用户的密码
+      volumes:
+          - ./mariadb/master/data:/var/lib/mysql
+          - ./mariadb/master:/etc/mysql #配置文件映射
+      container_name: master-mariadb-service #容器名称
+  slavemariadb: #mariadb数据库从服务
+      image: mariadb #镜像
+      expose:
+          - "3306" #抛出的端口
+      environment:
+          - MYSQL_ROOT_PASSWORD=root #root用户密码
+          - MYSQL_DATABASE=cig #默认创建数据库
+      volumes:
+          - ./mariadb/slave/data:/var/lib/mysql
+          - ./mariadb/slave:/etc/mysql #配置文件映射
+      container_name: slave-mariadb-service #容器名称
+  redis: #redis缓存数据库服务
+      image: redis #镜像
+      expose:
+         - "6379" #抛出的端口
+      volumes:
+         - ./redis/config:/usr/local/redis #配置文件映射
+      container_name: redis-service #容器名称
+  mongo: #mongodb缓存数据库服务
+      image: mongo #镜像
+      expose: #抛出的端口
+         - "27017"
+      container_name: mongodb-service #容器名称

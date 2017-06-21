@@ -1,2 +1,2 @@
-*.ini linguist-language=shell
-*.conf linguist-language=shell
+*.ini linguist-language=docker
+*.conf linguist-language=docker
