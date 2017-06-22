@@ -1,15 +1,13 @@
-# Nginx, PHP FPM, MariaDB,mongodb and Redis with Docker Compose based on Images
-
-
+# Nginx, PHP-FPM, MariaDB, Mongodb and Redis with Docker Compose based on Images
 ## 要求
 Install Docker and Compose 详情安装下载如下
 	- 在这里[https://www.docker.com/products/docker-toolbox](https://www.docker.com/products/docker-toolbox)选择对应的系统下载
 ## 克隆
 - https://github.com/sheldon9527/docker-compose-php-nginx-mariadb-redis.git
 ## 执行
-	- docker-compose up
+	- docker-compose up --build [第一次创建镜像有点慢，请耐心等待😁]
 ## 结果
-	- http://localhost:8082
+	- http://localhost:8082 [phpinfo 信息]
 ## 数据库主从配置
 	- 主从配置
 		- 进入Master库容器 `docker exec -it master-mariadb-service /bin/bash `
@@ -42,6 +40,9 @@ Install Docker and Compose 详情安装下载如下
         Relay_Master_Log_File: master-bin.000005
              Slave_IO_Running: Yes //这两个为yes开启成功
             Slave_SQL_Running: Yes //这两个为yes开启成功
+			.
+			.
+			.
 	- 测试
 		- 在Master中操作
 			create database test;
