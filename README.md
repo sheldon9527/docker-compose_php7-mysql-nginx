@@ -21,19 +21,19 @@ Install Docker and Compose 详情安装下载如下
 	-  授权 `GRANT REPLICATION SLAVE ON *.* TO 'slaveUser'@'IP' IDENTIFIED BY '123456';` IP 参数代表从容器的ip
 	-  `flush privileges;`
 	-  `show master status;`
-	-  	File    | Position  | Binlog_Do_DB| Binlog_Ignore_DB
+	File    | Position  | Binlog_Do_DB| Binlog_Ignore_DB
 ----- | ---- | ---- | ----
 master-bin.000005  | 635 |
-	  - 进入Slave `/usr/bin/mysql -uroot -p` 密码是root
-	  - 连接Master
+	- 进入Slave `/usr/bin/mysql -uroot -p` 密码是root
+	- 连接Master
 
 			  change master to master_host='172.23.0.2', //master_host: Master容器ip;
 			  master_user='slaveUser',
 			  master_password='123456',
 			  master_log_file='master-bin.000005',
 			  master_log_pos=635;
-	  - 启动Slave `start slave;`
-	  - 查看是否开启`show slave status\G;`
+	- 启动Slave `start slave;`
+	- 查看是否开启`show slave status\G;`
 
             Slave_IO_Running: Yes //这两个为yes开启成功
             Slave_SQL_Running: Yes //这两个为yes开启成功
