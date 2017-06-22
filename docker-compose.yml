@@ -20,7 +20,7 @@ services:
           - "9000"
       environment:
           - "DB_HOST=localhost"
-          - "DB_DATABASE=cig"
+          - "DB_DATABASE=cig" #默认数据库
       container_name: fpm-service #容器名称
   mastermariadb: #mariadb数据库主服务
       image: mariadb #镜像
