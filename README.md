@@ -10,7 +10,7 @@ Install Docker and Compose 详情安装下载如下
 - `https://github.com/sheldon9527/docker-compose-php-nginx-mariadb-redis.git`
 ## 执行
 
-- `docker-compose up` [第一次创建镜像有点慢，请耐心等待😁]
+- `docker-compose up --build` [第一次创建镜像有点慢，请耐心等待😁]
 ## 结果
 
 - `http://localhost:8082` [phpinfo 信息]
@@ -35,8 +35,9 @@ Install Docker and Compose 详情安装下载如下
 			  change master to master_host='172.23.0.2', //master_host: Master容器ip;
 			  master_user='slaveUser',
 			  master_password='123456',
-			  master_log_file='master-bin.000005',
+			  master_log_file='master-bin.000005', //show master status 的信息内容
 			  master_log_pos=635;
+
 	- 启动Slave `start slave;`
 	- 查看是否开启`show slave status\G;`
 
@@ -55,4 +56,3 @@ Install Docker and Compose 详情安装下载如下
 ##支持
 - 如有问题提出issue😁
 - 如有疑问QQ:`2192664403`
-- star
