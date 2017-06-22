@@ -1,12 +1,13 @@
-# Nginx, PHP FPM, MariaDB,Mongodb and Redis with Docker Compose based on Images
+# Nginx, PHP-FPM, MariaDB,Mongodb and Redis with Docker Compose based on Images
 
 ## 要求
 Install Docker and Compose 详情安装下载如下
 - 在这里[https://www.docker.com/products/docker-toolbox](https://www.docker.com/products/docker-toolbox)选择对应的系统下载
-##克隆
+
+## 克隆
 
 - `https://github.com/sheldon9527/docker-compose-php-nginx-mariadb-redis.git`
-##执行
+## 执行
 - `docker-compose up` [第一次创建镜像有点慢，请耐心等待😁]
 ## 结果
 - `http://localhost:8082` [phpinfo 信息]
