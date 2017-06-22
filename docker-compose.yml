@@ -53,3 +53,10 @@ services:
       volumes:
          - ./redis/config:/usr/local/redis #配置文件映射
       container_name: redis-service #容器名称
+  mongo: #mongodb缓存数据库服务
+      image: mongo #镜像
+      volumes:
+         - ./mongodb/data:/data/db
+      expose: #抛出的端口
+         - "27017"
+      container_name: mongodb-service #容器名称
