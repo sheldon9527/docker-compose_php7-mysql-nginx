@@ -10,6 +10,7 @@ Install Docker and Compose 详情安装下载如下
 - `https://github.com/sheldon9527/docker-compose_php7-mysql-nginx.git`
 ## 执行
 
+- `cd docker-compose_php7-mysql-nginx` 进入目录
 - `docker-compose up --build` [第一次创建镜像有点慢，请耐心等待😁]
 ## 结果
 
