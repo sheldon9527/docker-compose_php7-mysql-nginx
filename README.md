@@ -7,7 +7,7 @@ Install Docker and Compose 详情安装下载如下
 
 ## 克隆
 
-- `https://github.com/sheldon9527/docker-compose-php-nginx-mariadb-redis.git`
+- `https://github.com/sheldon9527/docker-compose_php7-mysql-nginx.git`
 ## 执行
 
 - `docker-compose up --build` [第一次创建镜像有点慢，请耐心等待😁]
