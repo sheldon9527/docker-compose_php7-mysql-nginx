@@ -4,7 +4,7 @@ services:
       build:
           context: ./nginx #dockerfile
       ports:
-          - "8082:80" #抛出的端口
+          - "8082:80" #抛出的端口(主机)
       volumes:
           - ./web:/home/www #项目目录
           - ./nginx/config:/etc/nginx/conf.d #配置文件映射
@@ -16,16 +16,16 @@ services:
           - ./web:/home/www #项目目录
           - ./php/config/www:/usr/local/php/etc/php-fpm.d #配置文件映射
           - ./php/config/phpfpm:/usr/local/php/etc #配置文件映射
-      expose: #抛出的端口
-          - "9000"
+      ports: #抛出的端口(主机)
+          - "9000:9000"
       environment:
           - "DB_HOST=localhost"
           - "DB_DATABASE=cig" #默认数据库
       container_name: fpm-service #容器名称
   mastermariadb: #mariadb数据库主服务
       image: mariadb #镜像
-      expose: #抛出的端口
-          - "3306"
+      ports: #抛出的端口(主机)
+          - "33061:3306"
       environment:
           - MYSQL_ROOT_PASSWORD=root #root用户密码
           - MYSQL_DATABASE=cig #默认创建数据库
@@ -37,8 +37,8 @@ services:
       container_name: master-mariadb-service #容器名称
   slavemariadb: #mariadb数据库从服务
       image: mariadb #镜像
-      expose:
-          - "3306" #抛出的端口
+      ports:
+          - "33062:3306" #抛出的端口(主机)
       environment:
           - MYSQL_ROOT_PASSWORD=root #root用户密码
           - MYSQL_DATABASE=cig #默认创建数据库
@@ -48,8 +48,8 @@ services:
       container_name: slave-mariadb-service #容器名称
   redis: #redis缓存数据库服务
       image: redis #镜像
-      expose:
-         - "6379" #抛出的端口
+      ports:
+         - "6379:6379" #抛出的端口(主机)
       volumes:
          - ./redis/config:/usr/local/redis #配置文件映射
       container_name: redis-service #容器名称
@@ -57,6 +57,6 @@ services:
       image: mongo #镜像
       volumes:
          - ./mongodb/data:/data/db #数据永久挂载到宿主机
-      expose: #抛出的端口
-         - "27017"
+      ports: #抛出的端口(主机)
+         - "27017:27017"
       container_name: mongodb-service #容器名称
