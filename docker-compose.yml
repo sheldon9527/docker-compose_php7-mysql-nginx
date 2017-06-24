@@ -3,8 +3,8 @@ services:
   nginx: #nginx服务
       build:
           context: ./nginx #dockerfile
-      ports:
-          - "8082:80" #抛出的端口(主机)
+      ports: #抛出的端口(主机)
+          - "8082:80"
       volumes:
           - ./web:/home/www #项目目录
           - ./nginx/config:/etc/nginx/conf.d #配置文件映射
@@ -49,14 +49,22 @@ services:
   redis: #redis缓存数据库服务
       image: redis #镜像
       ports:
-         - "6379:6379" #抛出的端口(主机)
+          - "6379:6379" #抛出的端口(主机)
+      environment:
+          - REDIS=1
+          - USER=redis #用户
+          - REDIS_PASSWORD=123456 #密码
       volumes:
-         - ./redis/config:/usr/local/redis #配置文件映射
+          - ./redis/config:/usr/local/redis #配置文件映射
       container_name: redis-service #容器名称
   mongo: #mongodb缓存数据库服务
-      image: mongo #镜像
+      image: 'bitnami/mongodb:latest' #镜像
       volumes:
-         - ./mongodb/data:/data/db #数据永久挂载到宿主机
+          - ./mongodb/data:/data/db #数据永久挂载到宿主机
       ports: #抛出的端口(主机)
-         - "27017:27017"
+          - "47017:27017"
+      environment:
+          - MONGODB_USERNAME=pushmedia #用户
+          - MONGODB_PASSWORD=12345678 #密码
+          - MONGODB_DATABASE=pm #数据库
       container_name: mongodb-service #容器名称
