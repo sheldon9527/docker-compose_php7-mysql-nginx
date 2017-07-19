@@ -31,10 +31,14 @@ services:
           - MYSQL_DATABASE=cig #默认创建数据库
           - MYSQL_USER=slaveUser #创建用于主从复制的用户
           - MYSQL_PASSWORD=123456 #创建用于主从复制的用户的密码
-      volumes:
-          - ./mariadb/master/data:/var/lib/mysql #数据永久挂载到宿主机
-          - ./mariadb/master:/etc/mysql #配置文件映射
       container_name: master-mariadb-service #容器名称
+      networks:
+          app_net:
+            ipv4_address: 10.5.0.5
+      volumes:
+    #       - ./mariadb/master/data:/var/lib/mysql #数据永久挂载到宿主机
+          - ./mariadb/master:/etc/mysql #配置文件映射
+
   slavemariadb: #mariadb数据库从服务
       image: mariadb #镜像
       ports:
@@ -43,9 +47,12 @@ services:
           - MYSQL_ROOT_PASSWORD=root #root用户密码
           - MYSQL_DATABASE=cig #默认创建数据库
       volumes:
-          - ./mariadb/slave/data:/var/lib/mysql #数据永久挂载到宿主机
+    #       - ./mariadb/slave/data:/var/lib/mysql #数据永久挂载到宿主机
           - ./mariadb/slave:/etc/mysql #配置文件映射
       container_name: slave-mariadb-service #容器名称
+      networks:
+          app_net:
+            ipv4_address: 10.5.0.6
   redis: #redis缓存数据库服务
       image: redis #镜像
       ports:
@@ -68,3 +75,10 @@ services:
           - MONGODB_PASSWORD=12345678 #密码
           - MONGODB_DATABASE=pm #数据库
       container_name: mongodb-service #容器名称
+networks:
+  app_net:
+     driver: bridge
+     ipam:
+        config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1

@@ -19,11 +19,9 @@ Install Docker and Compose 详情安装下载如下
 
 - 主从配置
 	- 进入Master库容器 `docker exec -it master-mariadb-service /bin/bash `
-	- 获取Master容器IP `more /etc/hosts` 例如：172.23.0.2	75e2dc084df2
 	- 打开另一个终端进入Slave容器 `docker exec -it slave-mariadb-service /bin/bash `
-	-  获取Slave容器IP `more /etc/hosts` 例如：172.23.0.3	75e2dc084fr4
 	-  进入Master `/usr/bin/mysql -uroot -p` 密码是root
-	-  授权 `GRANT REPLICATION SLAVE ON *.* TO 'slaveUser'@'IP' IDENTIFIED BY '123456';` IP 参数代表从容器的ip
+	-  授权 `GRANT REPLICATION SLAVE ON *.* TO 'slaveUser'@'10.5.0.6' IDENTIFIED BY '123456';` IP 参数代表从容器的ip
 	-  `flush privileges;`
 	-  `show master status;`
 
@@ -33,10 +31,10 @@ Install Docker and Compose 详情安装下载如下
 	- 进入Slave `/usr/bin/mysql -uroot -p` 密码是root
 	- 连接Master
 
-			  change master to master_host='172.23.0.2', //master_host: Master容器ip;
+			  change master to master_host='10.5.0.5',
 			  master_user='slaveUser',
 			  master_password='123456',
-			  master_log_file='master-bin.000005', //show master status 的信息内容
+			  master_log_file='master-bin.000005',
 			  master_log_pos=635;
 
 	- 启动Slave `start slave;`
@@ -47,7 +45,7 @@ Install Docker and Compose 详情安装下载如下
 
   	- 测试
 		- 在Master中操作
-
+		
 				create database test;
 				CREATE TABLE `admin` (
 				`id` int(11) NOT NULL AUTO_INCREMENT,
