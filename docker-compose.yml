@@ -65,15 +65,12 @@ services:
           - ./redis/config:/usr/local/redis #配置文件映射
       container_name: redis-service #容器名称
   mongo: #mongodb缓存数据库服务
-      image: 'bitnami/mongodb:latest' #镜像
-      volumes:
-          - ./mongodb/data:/data/db #数据永久挂载到宿主机
+      build:
+          context: ./mongodb #dockerfile
+    #   volumes:
+    #       - ./mongodb/data:/data/db #数据永久挂载到宿主机
       ports: #抛出的端口(主机)
           - "47017:27017"
-      environment:
-          - MONGODB_USERNAME=pushmedia #用户
-          - MONGODB_PASSWORD=12345678 #密码
-          - MONGODB_DATABASE=pm #数据库
       container_name: mongodb-service #容器名称
 networks:
   app_net:
