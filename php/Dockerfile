@@ -33,7 +33,7 @@ RUN cd /opt/soft && wget -c http://pecl.php.net/get/redis-3.1.2.tgz && tar -zxf 
 RUN cd /opt/soft && wget -c http://pecl.php.net/get/event-2.3.0.tgz && tar -zxf event-2.3.0.tgz && cd event-2.3.0 && /usr/local/php/bin/phpize && ./configure --with-php-config=/usr/local/php/bin/php-config --with-event-core --with-event-extra && make && make install
 
 #编译pthreads
-RUN cd /opt/soft && git clone https://github.com/krakjoe/pthreads.git && cd pthreads && /usr/local/php/bin/phpize && ./configure --with-php-config=/usr/local/php/bin/php-config --enable-pthreads --with-pthreads-sanitize --with-pthreads-dmalloc  --with-php-config=/usr/local/php/bin/php-config && make && make install
+#RUN cd /opt/soft && git clone https://github.com/krakjoe/pthreads.git && cd pthreads && #/usr/local/php/bin/phpize && ./configure --with-php-config=/usr/local/php/bin/php-config --enable-pthreads #--with-pthreads-sanitize --with-pthreads-dmalloc  --with-php-config=/usr/local/php/bin/php-config && make && #make install
 
 
 RUN cd /opt/soft && git clone https://github.com/redis/hiredis && cd hiredis && make -j && make install && ldconfig && mkdir -pv /usr/lib/hiredis && cp libhiredis.so /usr/lib/hiredis && mkdir -pv /usr/include/hiredis &&  cp hiredis.h /usr/include/hiredis
