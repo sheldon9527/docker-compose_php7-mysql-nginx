@@ -1,77 +1,90 @@
 version: "2"
 services:
   nginx: #nginx服务
-      build:
-          context: ./nginx #dockerfile
+      image: hub.c.163.com/sheldonyi/nginx:latest
       ports: #抛出的端口(主机)
-          - "8082:80"
+          - "8800:80"
       volumes:
           - ./web:/home/www #项目目录
           - ./nginx/config:/etc/nginx/conf.d #配置文件映射
+          - ./hosts:/etc/hosts:ro
       container_name: nginx-service #容器名称
+      networks:
+          app_net:
+              ipv4_address: 10.5.0.2
+      hostname: nginx
+      mem_limit: 512m
   fpm: #php的fpm服务
-      build:
-          context: ./php #dockerfile
+      image: hub.c.163.com/sheldonyi/php7.1:latest
       volumes:
           - ./web:/home/www #项目目录
           - ./php/config/www:/usr/local/php/etc/php-fpm.d #配置文件映射
           - ./php/config/phpfpm:/usr/local/php/etc #配置文件映射
+          - ./hosts:/etc/hosts:ro
       ports: #抛出的端口(主机)
-          - "9000:9000"
+          - "9001:9000"
       environment:
           - "DB_HOST=localhost"
-          - "DB_DATABASE=cig" #默认数据库
+          - "DB_DATABASE=dockercnym" #默认数据库
       container_name: fpm-service #容器名称
+      networks:
+          app_net:
+              ipv4_address: 10.5.0.3
+      hostname: php
+      mem_limit: 1024m
   mastermariadb: #mariadb数据库主服务
       image: mariadb #镜像
       ports: #抛出的端口(主机)
           - "33061:3306"
       environment:
           - MYSQL_ROOT_PASSWORD=root #root用户密码
-          - MYSQL_DATABASE=cig #默认创建数据库
+          - MYSQL_DATABASE=dockercnym #默认创建数据库
           - MYSQL_USER=slaveUser #创建用于主从复制的用户
           - MYSQL_PASSWORD=123456 #创建用于主从复制的用户的密码
+      volumes:
+          - ./mariadb/master/data:/var/lib/mysql #数据永久挂载到宿主机
+          - ./mariadb/master:/etc/mysql #配置文件映射
+          - ./hosts:/etc/hosts:ro
       container_name: master-mariadb-service #容器名称
       networks:
           app_net:
             ipv4_address: 10.5.0.5
-      volumes:
-    #       - ./mariadb/master/data:/var/lib/mysql #数据永久挂载到宿主机
-          - ./mariadb/master:/etc/mysql #配置文件映射
-
+      hostname: mastermariadb
+      mem_limit: 512m
   slavemariadb: #mariadb数据库从服务
       image: mariadb #镜像
       ports:
           - "33062:3306" #抛出的端口(主机)
       environment:
           - MYSQL_ROOT_PASSWORD=root #root用户密码
-          - MYSQL_DATABASE=cig #默认创建数据库
+          - MYSQL_DATABASE=dockercnym #默认创建数据库
       volumes:
-    #       - ./mariadb/slave/data:/var/lib/mysql #数据永久挂载到宿主机
+          - ./mariadb/slave/data:/var/lib/mysql #数据永久挂载到宿主机
           - ./mariadb/slave:/etc/mysql #配置文件映射
+          - ./hosts:/etc/hosts:ro
       container_name: slave-mariadb-service #容器名称
       networks:
           app_net:
             ipv4_address: 10.5.0.6
+      hostname: slavemariadb
+      mem_limit: 512m
   redis: #redis缓存数据库服务
       image: redis #镜像
       ports:
-          - "6379:6379" #抛出的端口(主机)
+          - "6380:6379" #抛出的端口(主机)
       environment:
           - REDIS=1
           - USER=redis #用户
           - REDIS_PASSWORD=123456 #密码
       volumes:
           - ./redis/config:/usr/local/redis #配置文件映射
+          - ./hosts:/etc/hosts:ro
       container_name: redis-service #容器名称
-  mongo: #mongodb缓存数据库服务
-      build:
-          context: ./mongodb #dockerfile
-    #   volumes:
-    #       - ./mongodb/data:/data/db #数据永久挂载到宿主机
-      ports: #抛出的端口(主机)
-          - "47017:27017"
-      container_name: mongodb-service #容器名称
+      networks:
+          app_net:
+            ipv4_address: 10.5.0.4
+      hostname: redis
+      mem_limit: 512m
 networks:
   app_net:
      driver: bridge

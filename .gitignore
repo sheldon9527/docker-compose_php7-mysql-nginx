@@ -1,0 +1,9 @@
+.gitlab-ci.yml
+.DS_Store
+.project
+.settings
+.buildpath
+.tags
+.tags1
+/mariadb/master/data
+/mariadb/slave/data

@@ -1,20 +1,9 @@
-# Nginx, PHP7, MariaDB,Mongodb and Redis with Docker Compose based on Images
+# Nginx, PHP7, MariaDB and Redis with Docker Compose based on Images
 
 ## 要求
 
-Install Docker and Compose 详情安装下载如下
-- [https://www.docker.com/products/docker-toolbox](https://www.docker.com/products/docker-toolbox)选择对应的系统
+Install Docker
 
-## 克隆
-
-- `https://github.com/sheldon9527/docker-compose_php7-mysql-nginx.git`
-## 执行
-
-- `cd docker-compose_php7-mysql-nginx` 进入目录
-- `docker-compose up --build` [第一次创建镜像有点慢，请耐心等待😁]
-## 结果
-
-- `http://localhost:8082` [phpinfo 信息]
 ## 数据库主从配置
 
 - 主从配置
@@ -34,8 +23,8 @@ Install Docker and Compose 详情安装下载如下
 			  change master to master_host='10.5.0.5',
 			  master_user='slaveUser',
 			  master_password='123456',
-			  master_log_file='master-bin.000005',
-			  master_log_pos=635;
+			  master_log_file='master-bin.000005', //例子，自己根据自己系统显示修改
+			  master_log_pos=635; //例子，自己根据自己系统显示修改
 
 	- 启动Slave `start slave;`
 	- 查看是否开启`show slave status\G;`
@@ -45,13 +34,10 @@ Install Docker and Compose 详情安装下载如下
 
   	- 测试
 		- 在Master中操作
-		
+
 				create database test;
 				CREATE TABLE `admin` (
 				`id` int(11) NOT NULL AUTO_INCREMENT,
 				`dt` date DEFAULT NULL COMMENT '日期',
 				PRIMARY KEY (`id`));
 				insert into admin values('1','2017');
-##支持
-- 如有问题提出issue😁
-- 如有疑问QQ:`2192664403`
