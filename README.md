@@ -38,6 +38,8 @@ Install Docker
 				create database test;
 				CREATE TABLE `admin` (
 				`id` int(11) NOT NULL AUTO_INCREMENT,
-				`dt` date DEFAULT NULL COMMENT '日期',
+				`name` varchar DEFAULT NULL COMMENT 'name',
 				PRIMARY KEY (`id`));
-				insert into admin values('1','2017');
+				insert into admin values('1','name');
+
+## star
